@@ -100,6 +100,8 @@
         font-weight: 600;
     }
 
+
+
     .nav button:hover {
         color: #3f58ff;
         background-color: #eaeaea;
@@ -115,7 +117,6 @@
         height: 1px;
         background: #4f4f4f;
     }
-
 
     .nav button.selected {
         font-weight: 800;
