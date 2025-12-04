@@ -72,7 +72,7 @@
 
     .title {
         font-weight: 500;
-        font-size: calc(40px + 1vw);
+        font-size: calc(20px + 1vw);
         margin: 15px;
     }
     .title:hover {
@@ -82,7 +82,7 @@
     .nav {
         display: flex;
         gap: 24px;
-        font-size: 0.95rem;
+        font-size: 16px;
     }
 
     .nav button {
@@ -91,7 +91,7 @@
         padding: calc(10px + 0.5vw);
         margin: 5px;
         font-family: garamond, sans-serif;
-        font-size: calc(8px + 1vw);
+        font-size: 16px;
         color: inherit;
         cursor: pointer;
         position: relative;
