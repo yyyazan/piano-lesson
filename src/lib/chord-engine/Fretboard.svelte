@@ -53,6 +53,11 @@
     const fretLines = Array.from({ length: fretsVisual.length - 1 }, (_, i) =>
         ((i + 1) / fretsVisual.length) * 100
     );
+
+    // Helper to find if a specific grid slot has a marker
+    function getMarker(currentMarkers: diagram[], s: number, f: number) {
+        return currentMarkers.find(m => m.string === s && m.fret === f);
+    }
 </script>
 
 <!--chord title -->
@@ -91,36 +96,27 @@
         </div>
 
         <!-- INTERACTION LAYER (string press at fret) -->
-        <div class="hits">
-            {#each strings as string, si}
-                {#each fretsHits as fret}
-                    <button
-                            type="button"
-                            class="hit"
-                            aria-label={`string ${string} fret ${fret}`}
-                            style={`left:${stringLinePositions[si]}%; top:${fret === 0 ? `${OPEN_HIT_Y}px` : `${fretCenters[fret - 1]}%`};`}
-                            on:click={() => play(string, fret)}
-                    ></button>
+        <div class="interactions">
+            {#each strings as s, si}
+                {#each fretsHits as f}
+                    {@const activeMarker = getMarker(markers, s, f)}
+
+                    <div
+                            class="pos"
+                            style={`left:${stringLinePositions[si]}%; top:${f === 0 ? `${OPEN_HIT_Y}px` : `${fretCenters[f - 1]}%`};`}
+                    >
+                        <Marker
+                                finger={activeMarker?.finger}
+                                on:click={() => play(s, f)}
+                        />
+                    </div>
                 {/each}
             {/each}
         </div>
 
-        <!-- MARKERS OVERLAY (finger dots) -->
-        <div class="markers-overlay">
-            {#each markers as m}
-                <div
-                        class="marker-position"
-                        style={`left:${stringLeftPercent(m.string)}%; top:${fretTop(m.fret)};`}
-                >
-                    <Marker finger={m.finger} />
-                </div>
-            {/each}
-        </div>
 
     </div>
-
 </div>
-
 
 <style>
     /* chord title */
@@ -184,41 +180,16 @@
         background: #bdbdbd;
     }
 
-
-
-    /* clickable targets */
-    .hits {
+    .interactions {
         position: absolute;
         inset: 0;
+        /* Ensure this sits on top of lines/cells */
+        z-index: 10;
     }
 
-    .hit {
+    .pos {
         position: absolute;
-        width: 35px;
-        height: 30px;
-        transform: translate(-50%, -50%);
-        background: transparent;
-        border: none;
-        border-radius: 999px;
-        cursor: pointer;
-        transition: background 120ms ease-out;
-        box-sizing: border-box;
-    }
-
-    .hit:hover {
-        background: rgb(41, 19, 185, 0.25);
-    }
-
-
-    /* markers (finger dots) */
-    .markers-overlay {
-        position: absolute;
-        inset: 0;
+        /* Ensure the div itself doesn't block clicks, pass through to the button inside */
         pointer-events: none;
     }
-
-    .marker-position {
-        position: absolute;
-    }
-
 </style>

@@ -1,56 +1,66 @@
 <script lang="ts">
-    export let finger: number = 0;
+    export let finger: number | undefined = undefined;
 </script>
 
-<button type="button" class="edge" on:click>
-    <span class="front" class:layout-grid={finger > 2}>
-        {#if finger === 1}
-            <span class="dot"></span>
-        {:else if finger === 2}
-            <span class="dot"></span><span class="dot"></span>
-        {:else if finger === 3}
-            <span class="dot dot-span-all"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        {:else if finger === 4}
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        {/if}
-    </span>
+<button
+        type="button"
+        class="marker-btn"
+        class:edge={finger !== undefined}
+        class:ghost={finger === undefined}
+        on:click
+>
+    {#if finger}
+        <span class="front" class:layout-grid={finger > 2}>
+            {#if finger === 1}
+                <span class="dot"></span>
+            {:else if finger === 2}
+                <span class="dot"></span><span class="dot"></span>
+            {:else if finger === 3}
+                <span class="dot dot-span-all"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            {:else if finger === 4}
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            {/if}
+        </span>
+    {/if}
 </button>
 
 <style>
-    /* The "edge" is the container.
-      It provides the dark background color that is
-      revealed when the "front" moves.
-      It should NOT have display: flex/grid.
-    */
 
+    .marker-btn {
+        pointer-events: auto; /* Re-enable clicks (parent wrapper has none) */
+        transform: translate(-50%, -50%);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        /* Default size for hit target */
+        width: 35px;
+        height: 30px;
+        border-radius: 999px;
+        position: relative;
+    }
 
     .edge {
         /* This is the "edge" color */
         background: hsl(0, 0%, 10%);
         border-radius: 999px;
 
-        /* These are important: We set the size on the
-          container, not the moving parts.
-        */
+
         width: 30px;
         height: 23px;
-
-        /* Must be relative to hold the .front */
+        transform: translate(-50%, -50%);
         position: relative;
 
-        pointer-events: none;
-        transform: translate(-50%, -50%);
+        pointer-events: auto;
+
     }
 
-    /* The "front" is the main visual (the black circle).
-      It holds the content (the dots).
-      It gets all the layout styles (flex/grid).
-    */
+    /* front */
     .front {
         /* It must fill its parent "edge" */
         position: absolute;
@@ -72,22 +82,17 @@
     }
 
     /* --- 2. HOVERING STATE --- */
-    /* We target the PARENT Fretboard's .hit:hover,
-      and then affect this component.
-      This requires a change in Fretboard.svelte.
-      For now, let's just make the marker lift on its own hover.
-    */
     .edge:hover .front {
-        transform: translateY(-4px); /* Lifts higher */
+        transform: translateY(-3px); /* half press */
     }
 
     /* --- 3. PRESSING STATE --- */
     .edge:active .front {
         transform: translateY(-1px); /* Pushes "down" */
     }
-
-
-    /* --- Dot Layout Styles (now applied to .front) --- */
+    .front:active {
+        background: #114DF2;
+    }
 
     /* "layout-grid" is now on ".front", not ".edge" */
     .front.layout-grid {
@@ -102,11 +107,20 @@
         grid-column: 1 / -1;
     }
 
-    .dot { /* This was .edge .dot, now it's just .dot */
+    .dot {
         width: 5px;
         height: 5px;
         border-radius: 999px;
         background: #fff;
         display: inline-block;
+    }
+
+    /* --- ghost (Empty fret highlight) --- */
+    .ghost {
+        background: transparent;
+    }
+
+    .ghost:hover {
+        background: rgba(231, 100, 100, 0.24);
     }
 </style>

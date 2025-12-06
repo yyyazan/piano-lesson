@@ -8,6 +8,9 @@
         type Chord
     } from "./json-to-ui";
     import Button1 from "./Button1.svelte";
+    import HUD from "./HUD.svelte";
+
+    let currentProgress = 0;
 
     const data = cagedJson as ChordFile;
     const chords: Chord[] = data.chords;
@@ -20,10 +23,19 @@
         currentIndex = (currentIndex + 1) % chords.length;
         currentChord = chords[currentIndex];
         markers = chordToMarkers(currentChord);
+
+        // progress bar
+        if (currentProgress >= 100) {
+            currentProgress = 0;
+        } else {
+            currentProgress += 10;
+        }
     }
 </script>
 
 <section class="chord-engine">
+    <HUD progress={currentProgress} />
+
     <Fretboard markers={markers} chord_title={currentChord.name} />
 
     <Button1 on:click={nextChord}>next chord</Button1>
