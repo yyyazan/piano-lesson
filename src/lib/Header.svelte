@@ -18,24 +18,24 @@
     </div>
 
     <nav class="nav">
-        <button
-                class:selected={active === "chords"}
-                on:click={() => go("chords")}
-        >
-            chords
-        </button>
-        <button
-                class:selected={active === "scales"}
-                on:click={() => go("scales")}
-        >
-            scales
-        </button>
-        <button
-                class:selected={active === "profile"}
-                on:click={() => go("profile")}
-        >
-            profile
-        </button>
+<!--        <button-->
+<!--                class:selected={active === "chords"}-->
+<!--                on:click={() => go("chords")}-->
+<!--        >-->
+<!--            chords-->
+<!--        </button>-->
+<!--        <button-->
+<!--                class:selected={active === "scales"}-->
+<!--                on:click={() => go("scales")}-->
+<!--        >-->
+<!--            scales-->
+<!--        </button>-->
+<!--        <button-->
+<!--                class:selected={active === "profile"}-->
+<!--                on:click={() => go("profile")}-->
+<!--        >-->
+<!--            profile-->
+<!--        </button>-->
     </nav>
 </header>
 

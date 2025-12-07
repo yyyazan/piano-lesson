@@ -1,6 +1,7 @@
 import type { diagram } from "./types";
 
 export type FretValue = number | "x";
+export type { diagram };
 
 export interface Chord {
     name: string;
