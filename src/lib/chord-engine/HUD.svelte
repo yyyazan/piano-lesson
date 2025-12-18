@@ -14,7 +14,7 @@
         <div class="fill" style="width: {progress}%"></div>
     </div>
 
-    <div>
+    <div class="settings">
         <Settings/>
     </div>
 </div>
@@ -76,5 +76,8 @@
     font-family: monospace;
 }
 
+.settings {
+    padding: 30px;
+}
 
 </style>

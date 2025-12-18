@@ -1,3 +1,4 @@
+<!--manages fretboard UI-->
 <script lang="ts">
     import type { diagram } from "./types";
     import Marker from "./Marker.svelte";

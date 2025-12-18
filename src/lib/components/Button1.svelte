@@ -19,7 +19,7 @@
 
 <style>
     /* * This is the main "pushable" container.
-     * Its only job is to BE the dark "edge" of the button.
+     * Its only job is to be the dark "edge" of the button.
      */
     .edge {
         background: hsl(248, 81%, 40%); /* The dark edge color */
@@ -36,12 +36,10 @@
         display: block;
         box-sizing: border-box;
 
-        /* Copied from your Figma */
         background: #114DF2;
         border-radius: 44px;
         height: 35px; /* (Note: Using padding is usually better) */
 
-        /* My guesses for font/padding to match your image */
         color: white;
         font-family: Nunito, sans-serif;
         font-size: 20px;

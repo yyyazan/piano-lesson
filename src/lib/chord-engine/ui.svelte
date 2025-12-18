@@ -2,7 +2,7 @@
     import { onDestroy } from "svelte";
     import Fretboard from "./Fretboard.svelte";
     import HUD from "./HUD.svelte";
-    import Button1 from "./Button1.svelte";
+    import Button1 from "../components/Button1.svelte";
 
     // Import the brain
     import { game } from "./engine.svelte.js";

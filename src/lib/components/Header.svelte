@@ -1,5 +1,5 @@
 <script lang="ts">
-    import owl from "../assets/owl.jpg";
+    import owl from "../../assets/owl.jpg";
 
     // which section is currently active (highlighted)
     export let active: "chords" | "scales" | "profile" | "home" = "chords";
